@@ -27,10 +27,10 @@ def generate_data(
             "perceived_ability": perceived_ability,
         })
         .with_columns(
-            pl.col("test_score").rank()
+            pl.col("test_score").rank().sub(1)
                 .mul(100).floordiv(n_participants)
                 .alias("test_score_percentile"),
-            pl.col("perceived_ability").rank()
+            pl.col("perceived_ability").rank().sub(1)
                 .mul(100).floordiv(n_participants)
                 .alias("perceived_ability_percentile"),
             pl.col("test_score").qcut(4, labels=QUARTILES)
@@ -63,8 +63,8 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
         .encode(
             alt.Color("variable:N").title(None)
                 .sort(("test_score_percentile", "perceived_ability_percentile")),
-            alt.X(f"{quartile_col}:O").sort(QUARTILES),
-            alt.Y("average:Q").title(None),
+            alt.X(f"{quartile_col}:O").sort(QUARTILES).axis(labelAngle=0),
+            alt.Y("average:Q").title("average_percentile"),
         )
     )
 
