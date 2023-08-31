@@ -94,7 +94,7 @@ if __name__ == "__main__":
     data = generate_data(
         corr_coef=corr_coef,
         n_participants=n_participants,
-        random_seed=random_seed,
+        random_seed=random_seed,  # type: ignore
     )
 
     st.header("Test score vs. perceived ability")

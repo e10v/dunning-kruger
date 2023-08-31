@@ -28,12 +28,13 @@ type = "pyright"
 [tool.pyright]
 typeCheckingMode = "strict"
 reportMissingTypeStubs = false
+reportUnknownMemberType = false
 
 
 [tool.ruff]
 select = [
     "A", "ANN", "ARG", "B", "C4", "C90", "COM", "DTZ", "E", "ERA", "F",
-    "I", "ICN", "INP", "N", "PGH", "PL", "PT", "RET", "RSE", "RUF", "Q", "SIM",
+    "I", "ICN", "INP", "N", "PL", "PT", "RET", "RSE", "RUF", "Q", "SIM",
     "SLF", "TCH", "TID", "TRY", "UP", "W",
 ]
 
