@@ -5,7 +5,12 @@ description = "Monte Carlo simulation of the Dunning and Kruger experiment."
 authors = [
     {name = "Evgeny Ivanov", email = "ivanov.evgeny.n@gmail.com"},
 ]
-dependencies = ["numpy", "streamlit"]
+dependencies = [
+    "altair",
+    "numpy",
+    "polars",
+    "streamlit",
+]
 requires-python = ">=3.10"
 readme = "README.md"
 license = {text = "MIT"}
@@ -13,3 +18,33 @@ license = {text = "MIT"}
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 lint = ["ruff", "pyright"]
+
+[tool.pdm.scripts]
+app = "streamlit app.py"
+lint = "ruff check ."
+type = "pyright"
+
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = false
+
+
+[tool.ruff]
+select = [
+    "A", "ANN", "ARG", "B", "C4", "C90", "COM", "D", "DTZ", "E", "ERA", "F",
+    "I", "ICN", "INP", "N", "PGH", "PL", "PT", "RET", "RSE", "RUF", "Q", "SIM",
+    "SLF", "TCH", "TID", "TRY", "UP", "W",
+]
+
+[tool.ruff.isort]
+classes = ["HTML"]
+force-sort-within-sections = true
+lines-after-imports = 2
+known-local-folder = ["rico"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.pylint]
+max-args = 8
