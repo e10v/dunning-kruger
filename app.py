@@ -71,25 +71,27 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
 
 if __name__ == "__main__":
     st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
-    st.header("Parameters")
 
-    corr_coef = st.slider(
-        label="Correlation coefficient",
-        min_value=0.05,
-        max_value=0.95,
-        value=0.5,
-        step=0.05,
-    )
+    with st.sidebar:
+        st.header("Parameters")
 
-    n_participants = st.slider(
-        label="Number of participants",
-        min_value=100,
-        max_value=500,
-        value=300,
-        step=20,
-    )
+        corr_coef = st.slider(
+            label="Correlation coefficient",
+            min_value=0.05,
+            max_value=0.95,
+            value=0.5,
+            step=0.05,
+        )
 
-    random_seed = st.number_input(label="Random seed", value=42)
+        n_participants = st.slider(
+            label="Number of participants",
+            min_value=100,
+            max_value=500,
+            value=300,
+            step=20,
+        )
+
+        random_seed = st.number_input(label="Random seed", value=42)
 
     data = generate_data(
         corr_coef=corr_coef,
