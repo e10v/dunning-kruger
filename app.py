@@ -13,7 +13,7 @@ def generate_data(
     corr_coef: float,
     n_participants: int,
     random_seed: int,
-    bias: float,
+    bias: int,
 ) -> pl.DataFrame:
     rng = np.random.default_rng(random_seed)
     test_score = rng.normal(size=n_participants)
@@ -26,8 +26,10 @@ def generate_data(
         pl.DataFrame({
             "test_score_percentile": (
                 test_score.argsort().argsort() * 100 // n_participants),
-            "perceived_ability_percentile": 100 // (
-                1 + np.exp(-perceived_ability)*(0.5 - bias)/(0.5 + bias)),
+            "perceived_ability_percentile": (
+                2*bias +
+                perceived_ability.argsort().argsort() * (100 - 2*bias) // n_participants
+            ),
         })
         .with_columns(
             pl.col("test_score_percentile").qcut(4, labels=QUARTILES)
@@ -87,11 +89,11 @@ if __name__ == "__main__":
         )
 
         bias = st.slider(
-            label="Average bias",
-            min_value=0.0,
-            max_value=0.4,
-            value=0.2,
-            step=0.05,
+            label="Bias (percentiles)",
+            min_value=0,
+            max_value=40,
+            value=20,
+            step=5,
         )
 
         random_seed = st.number_input(label="Random seed", value=42)
