@@ -63,7 +63,7 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
             alt.Color("variable:N").title(None)
                 .sort(("test_score_percentile", "perceived_ability_percentile")),
             alt.X(f"{quartile_col}:O").sort(QUARTILES).axis(labelAngle=0),
-            alt.Y("average:Q").title("average_percentile"),
+            alt.Y("average:Q").title("average_percentile").scale(domain=(0, 100)),
         )
     )
 
