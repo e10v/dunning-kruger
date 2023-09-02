@@ -24,21 +24,15 @@ def generate_data(
 
     return (
         pl.DataFrame({
-            "test_score": test_score,
-            "perceived_ability": perceived_ability,
+            "test_score_percentile": (
+                test_score.argsort().argsort() * 100 // n_participants),
+            "perceived_ability_percentile": 100 // (
+                1 + np.exp(-perceived_ability)*(0.5 - bias)/(0.5 + bias)),
         })
         .with_columns(
-            pl.col("test_score").rank().sub(1)
-                .mul(100).floordiv(n_participants)
-                .alias("test_score_percentile"),
-            pl.lit(100).floordiv(
-                    pl.col("perceived_ability").mul(-1).exp()
-                    .mul((0.5 - bias) / (0.5 + bias))
-                    .add(1),
-                ).alias("perceived_ability_percentile"),
-            pl.col("test_score").qcut(4, labels=QUARTILES)
+            pl.col("test_score_percentile").qcut(4, labels=QUARTILES)
                 .alias("test_score_quartile"),
-            pl.col("perceived_ability").qcut(4, labels=QUARTILES)
+            pl.col("perceived_ability_percentile").qcut(4, labels=QUARTILES)
                 .alias("perceived_ability_quartile"),
         )
     )
@@ -73,10 +67,8 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
 
 
 if __name__ == "__main__":
-    st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
-
     with st.sidebar:
-        st.header("Parameters")
+        st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
 
         n_participants = st.slider(
             label="Number of participants",
@@ -97,9 +89,9 @@ if __name__ == "__main__":
         bias = st.slider(
             label="Average bias",
             min_value=0.0,
-            max_value=0.4,
+            max_value=4.0,
             value=0.2,
-            step=0.05,
+            step=0.1,
         )
 
         random_seed = st.number_input(label="Random seed", value=42)
