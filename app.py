@@ -89,9 +89,9 @@ if __name__ == "__main__":
         bias = st.slider(
             label="Average bias",
             min_value=0.0,
-            max_value=4.0,
+            max_value=0.4,
             value=0.2,
-            step=0.1,
+            step=0.05,
         )
 
         random_seed = st.number_input(label="Random seed", value=42)
