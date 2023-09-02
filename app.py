@@ -13,6 +13,7 @@ def generate_data(
     corr_coef: float,
     n_participants: int,
     random_seed: int,
+    bias: float,
 ) -> pl.DataFrame:
     rng = np.random.default_rng(random_seed)
     test_score = rng.normal(size=n_participants)
@@ -30,9 +31,11 @@ def generate_data(
             pl.col("test_score").rank().sub(1)
                 .mul(100).floordiv(n_participants)
                 .alias("test_score_percentile"),
-            pl.col("perceived_ability").rank().sub(1)
-                .mul(100).floordiv(n_participants)
-                .alias("perceived_ability_percentile"),
+            pl.lit(100).floordiv(
+                    pl.col("perceived_ability").mul(-1).exp()
+                    .mul((0.5 - bias) / (0.5 + bias))
+                    .add(1),
+                ).alias("perceived_ability_percentile"),
             pl.col("test_score").qcut(4, labels=QUARTILES)
                 .alias("test_score_quartile"),
             pl.col("perceived_ability").qcut(4, labels=QUARTILES)
@@ -75,20 +78,28 @@ if __name__ == "__main__":
     with st.sidebar:
         st.header("Parameters")
 
-        corr_coef = st.slider(
-            label="Correlation coefficient",
-            min_value=0.05,
-            max_value=0.95,
-            value=0.5,
-            step=0.05,
-        )
-
         n_participants = st.slider(
             label="Number of participants",
-            min_value=100,
-            max_value=500,
-            value=300,
-            step=20,
+            min_value=50,
+            max_value=150,
+            value=100,
+            step=10,
+        )
+
+        corr_coef = st.slider(
+            label="Correlation",
+            min_value=0.0,
+            max_value=1.0,
+            value=0.5,
+            step=0.1,
+        )
+
+        bias = st.slider(
+            label="Average bias",
+            min_value=0.0,
+            max_value=0.4,
+            value=0.2,
+            step=0.05,
         )
 
         random_seed = st.number_input(label="Random seed", value=42)
@@ -97,6 +108,7 @@ if __name__ == "__main__":
         corr_coef=corr_coef,
         n_participants=n_participants,
         random_seed=random_seed,  # type: ignore
+        bias=bias,
     )
 
     st.header("Test score vs. perceived ability")
