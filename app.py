@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     import numpy.typing as npt
 
 
-QUARTILES = ("Bottom", "2nd", "3rd", "Top")
+QUARTILES = ("bottom", "2nd", "3rd", "top")
 
 
 def percentile(x: npt.NDArray[np.float_]) -> npt.NDArray[np.int_]:
