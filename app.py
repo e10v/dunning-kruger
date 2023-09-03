@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import textwrap
 from typing import TYPE_CHECKING
 
 import altair as alt
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     alt.themes.enable("custom_theme")
 
     with st.sidebar:
-        st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
+        st.header("Parameters")
 
         n_participants = st.slider(
             label="Number of participants",
@@ -140,6 +141,12 @@ if __name__ == "__main__":
         corr_coef=corr_coef,
         random_seed=random_seed,  # type: ignore
     )
+
+    st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
+    st.markdown(textwrap.dedent("""\
+        [![Source Code](https://img.shields.io/badge/source_code-green?logo=github&labelColor=gray)](https://github.com/e10v/dunning-kruger)
+        [![Blog Post](https://img.shields.io/badge/blog_post-blue?label=e10v&labelColor=gray)](https://e10v.me)
+    """))
 
     st.header("Test score vs. perceived ability")
     st.altair_chart(
