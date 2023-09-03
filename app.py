@@ -37,6 +37,8 @@ def generate_data(
 
     return (
         pl.DataFrame({
+            "test_score": test_score,
+            "perceived_ability": perceived_ability,
             "test_score_percentile": percentile(test_score),
             "perceived_ability_percentile": percentile(perceived_ability),
         })
@@ -51,10 +53,10 @@ def generate_data(
     )
 
 
-def create_percentile_chart(data: pl.DataFrame) -> alt.Chart:
+def create_point_chart(data: pl.DataFrame, x: str, y: str) -> alt.Chart:
     return alt.Chart(data).mark_point().encode(
-        alt.X("test_score_percentile:Q").title("test score percentile"),
-        alt.Y("perceived_ability_percentile:Q").title("perceived ability percentile"),
+        alt.X(f"{x}:Q").title(x.replace("_", " ")),
+        alt.Y(f"{y}:Q").title(y.replace("_", " ")),
     )
 
 
@@ -150,7 +152,17 @@ if __name__ == "__main__":
 
     st.header("Test score vs. perceived ability")
     st.altair_chart(
-        create_percentile_chart(data),
+        create_point_chart(data, x="test_score", y="perceived_ability"),
+        theme=None,
+    )
+
+    st.header("Test score percentile vs. perceived ability percentile")
+    st.altair_chart(
+        create_point_chart(
+            data,
+            x="test_score_percentile",
+            y="perceived_ability_percentile",
+        ),
         theme=None,
     )
 
