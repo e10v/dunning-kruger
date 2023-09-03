@@ -1,4 +1,4 @@
-"""Monte Carlo simulation of the Dunning-Kruger experiment."""
+"""Random number simulation of the Dunning-Kruger experiment."""
 
 from __future__ import annotations
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
         random_seed=random_seed,  # type: ignore
     )
 
-    st.title("Monte Carlo simulation of the Dunning-Kruger experiment")
+    st.title("Random number simulation of the Dunning-Kruger experiment")
     st.markdown(textwrap.dedent("""\
         [![Source Code](https://img.shields.io/badge/source_code-green?logo=github&labelColor=gray)](https://github.com/e10v/dunning-kruger)
         [![Blog Post](https://img.shields.io/badge/blog_post-blue?label=e10v&labelColor=gray)](https://e10v.me)
