@@ -1,1 +1,1 @@
-# Monte Carlo simulation of the Dunning-Kruger experiment
+# Random number simulation of the Dunning-Kruger experiment
