@@ -18,8 +18,8 @@ QUARTILES = ("Bottom", "2nd", "3rd", "Top")
 
 
 def generate_data(
-    corr_coef: float,
     n_participants: int,
+    corr_coef: float,
     random_seed: int,
 ) -> pl.DataFrame:
     rng = np.random.default_rng(random_seed)
@@ -133,8 +133,8 @@ if __name__ == "__main__":
         random_seed = st.number_input(label="Random seed", value=42)
 
     data = generate_data(
-        corr_coef=corr_coef,
         n_participants=n_participants,
+        corr_coef=corr_coef,
         random_seed=random_seed,  # type: ignore
     )
 
