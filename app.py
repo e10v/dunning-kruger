@@ -37,9 +37,11 @@ def generate_data(
                 perceived_ability.argsort().argsort() * 100 // n_participants),
         })
         .with_columns(
-            pl.col("test_score_percentile").qcut(4, labels=QUARTILES)
+            pl.col("test_score_percentile")
+                .qcut(4, labels=QUARTILES)
                 .alias("test_score_quartile"),
-            pl.col("perceived_ability_percentile").qcut(4, labels=QUARTILES)
+            pl.col("perceived_ability_percentile")
+                .qcut(4, labels=QUARTILES)
                 .alias("perceived_ability_quartile"),
         )
     )
@@ -47,8 +49,8 @@ def generate_data(
 
 def create_percentile_chart(data: pl.DataFrame) -> alt.Chart:
     return alt.Chart(data).mark_point().encode(
-        alt.X("test_score_percentile:Q"),
-        alt.Y("perceived_ability_percentile:Q"),
+        alt.X("test_score_percentile:Q").title("test score percentile"),
+        alt.Y("perceived_ability_percentile:Q").title("perceived ability percentile"),
     )
 
 
@@ -56,8 +58,8 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
     return (
         data.select(
             quartile_col,
-            pl.col("test_score_percentile").alias("test_score"),
-            pl.col("perceived_ability_percentile").alias("perceived_ability"),
+            pl.col("test_score_percentile").alias("test score"),
+            pl.col("perceived_ability_percentile").alias("perceived ability"),
         )
         .group_by(quartile_col)
         .mean()
@@ -65,11 +67,17 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
         .pipe(alt.Chart)
         .mark_line(point=True)
         .encode(
-            alt.Color("variable:N").title(None)
-                .sort(("test_score", "perceived_ability"))
-                .legend(orient="bottom-right"),
-            alt.X(f"{quartile_col}:N").sort(QUARTILES).axis(labelAngle=0),
-            alt.Y("average:Q").title("average_percentile").scale(domain=(0, 100)),
+            alt.Color("variable:N")
+                .sort(("test score", "perceived ability"))
+                .legend(orient="bottom-right")
+                .title(None),
+            alt.X(f"{quartile_col}:N")
+                .sort(QUARTILES)
+                .axis(labelAngle=0)
+                .title(quartile_col.replace("_", " ")),
+            alt.Y("average:Q")
+                .scale(domain=(0, 100))
+                .title("average percentile"),
         )
     )
 
@@ -131,10 +139,16 @@ if __name__ == "__main__":
     )
 
     st.header("Test score vs. perceived ability")
-    st.altair_chart(create_percentile_chart(data), theme=None)
+    st.altair_chart(
+        create_percentile_chart(data),
+        theme=None,
+    )
 
     st.header("Average percentiles by test score quartiles")
-    st.altair_chart(create_quartile_chart(data, "test_score_quartile"), theme=None)
+    st.altair_chart(
+        create_quartile_chart(data, "test_score_quartile"),
+        theme=None,
+    )
 
     st.header("Average percentiles by perceived ability quartiles")
     st.altair_chart(
