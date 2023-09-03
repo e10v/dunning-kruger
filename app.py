@@ -13,9 +13,14 @@ import streamlit as st
 if TYPE_CHECKING:
     from typing import Any
 
+    import numpy.typing as npt
+
 
 QUARTILES = ("Bottom", "2nd", "3rd", "Top")
 
+
+def percentile(x: npt.NDArray[np.float_]) -> npt.NDArray[np.int_]:
+    return x.argsort().argsort() * 100 // len(x)
 
 def generate_data(
     n_participants: int,
@@ -31,10 +36,8 @@ def generate_data(
 
     return (
         pl.DataFrame({
-            "test_score_percentile": (
-                test_score.argsort().argsort() * 100 // n_participants),
-            "perceived_ability_percentile": (
-                perceived_ability.argsort().argsort() * 100 // n_participants),
+            "test_score_percentile": percentile(test_score),
+            "perceived_ability_percentile": percentile(perceived_ability),
         })
         .with_columns(
             pl.col("test_score_percentile")
