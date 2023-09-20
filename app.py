@@ -1,3 +1,4 @@
+# ruff: noqa: RUF001
 """Random number simulation of the Dunning-Kruger experiment."""
 
 from __future__ import annotations
