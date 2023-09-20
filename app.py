@@ -144,10 +144,20 @@ if __name__ == "__main__":
         random_seed=random_seed,  # type: ignore
     )
 
-    st.title("Random number simulation of the Dunning-Kruger experiment")
+    st.title("Random number simulation of the Dunning–Kruger experiment")
     st.markdown(textwrap.dedent("""\
         [![Source Code](https://img.shields.io/badge/source_code-green?logo=github&labelColor=gray)](https://github.com/e10v/dunning-kruger)
-        [![Blog Post](https://img.shields.io/badge/blog_post-blue?label=e10v&labelColor=gray)](https://e10v.me)
+        [![Blog Post](https://img.shields.io/badge/blog_post-blue?label=e10v&labelColor=gray)](https://e10v.me/debunking-dunning-kruger-effect/)
+    """))
+
+    st.markdown(textwrap.dedent("""\
+        The Dunning–Kruger effect is a cognitive bias wherein people with limited\
+        competence in a particular domain overestimate their abilities. It turns out\
+        that the Dunning–Kruger experiments do not prove that the effect is real.\
+        This app illustrates this using a random number simulation. The data generation\
+        process doesn't imply that "incompetent" participants overestimate their\
+        abilities. See more details in the\
+        [blog post](https://e10v.me/debunking-dunning-kruger-effect/).
     """))
 
     st.header("Test score vs. perceived ability")
