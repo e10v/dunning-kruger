@@ -2,7 +2,7 @@
 
 The Dunning–Kruger effect is a cognitive bias wherein people with limited competence in a particular domain overestimate their abilities. It turns out that the Dunning–Kruger experiments do not prove that the effect is real. This app illustrates this using a random number simulation. The data generation process doesn't imply that "incompetent" participants overestimate their abilities. See more details in the [blog post](https://e10v.me/debunking-dunning-kruger-effect/).
 
-The app is available in the Streamlit Community Cloud: https://dunning-kruger.streamlit.app/
+The app is available in the Streamlit Community Cloud: https://dunning-kruger.streamlit.app
 
 To install and run it locally, follow these steps:
 
@@ -27,4 +27,4 @@ pdm sync
 pdm run app
 ```
 
-4. Open the app: http://localhost:8501.
+4. Open the app: http://localhost:8501
