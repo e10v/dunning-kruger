@@ -11,8 +11,7 @@ To install and run it locally, follow these steps:
 1. Download the app code and go to the directory:
 
 ```bash
-git clone git@github.com:e10v/dunning-kruger.git
-cd dunning-kruger
+git clone git@github.com:e10v/dunning-kruger.git && cd dunning-kruger
 ```
 
 2. Install dependencies:
