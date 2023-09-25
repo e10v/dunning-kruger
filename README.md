@@ -1,10 +1,14 @@
 # Random number simulation of the Dunning and Kruger experiments
 
-The Dunning–Kruger effect is a cognitive bias wherein people with limited competence in a particular domain overestimate their abilities. It turns out that the Dunning and Kruger experiments do not prove that the effect is real. This app illustrates this using a random number simulation. The data generation process doesn't imply that "incompetent" participants overestimate their abilities. See more details in my blog post [Debunking the Dunning–Kruger effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
+## Overview
 
-The app is available in the Streamlit Community Cloud: https://dunning-kruger.streamlit.app
+The Dunning–Kruger effect suggests that people with low competence in a domain often overestimate their abilities. But do the foundational experiments truly confirm this effect? This app offers a random number simulation challenging those original findings. For a deep dive into the topic, check out my blog post [Debunking the Dunning–Kruger effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
 
-To install and run it locally, follow these steps:
+## Try the live demo
+
+Experience the simulation firsthand. Visit the app hosted on Streamlit Community Cloud: [Random number simulation of the Dunning and Kruger experiments](https://dunning-kruger.streamlit.app).
+
+## Try it locally
 
 0. Install [PDM](https://pdm.fming.dev/latest/#installation).
 

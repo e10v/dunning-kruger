@@ -152,13 +152,11 @@ if __name__ == "__main__":
     """))
 
     st.markdown(textwrap.dedent("""\
-        The Dunning–Kruger effect is a cognitive bias wherein people with limited\
-        competence in a particular domain overestimate their abilities. It turns out\
-        that the Dunning and Kruger experiments do not prove that the effect is real.\
-        This app illustrates this using a random number simulation. The data generation\
-        process doesn't imply that "incompetent" participants overestimate their\
-        abilities. See more details in my blog post [Debunking the Dunning–Kruger\
-        effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
+        The Dunning–Kruger effect suggests that people with low competence in a domain\
+        often overestimate their abilities. But do the foundational experiments truly\
+        confirm this effect? This app offers a random number simulation challenging\
+        those original findings. For a deep dive into the topic, check out my blog post\
+        [Debunking the Dunning–Kruger effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
     """))
 
     st.header("Test score vs. perceived ability")
