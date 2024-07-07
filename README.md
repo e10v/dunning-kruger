@@ -6,7 +6,7 @@ The Dunning–Kruger effect suggests that people with low competence in a domain
 
 ## Try the live demo
 
-Experience the simulation firsthand. Visit the app hosted on Streamlit Community Cloud: [Random number simulation of the Dunning and Kruger experiments](https://dunning-kruger.streamlit.app).
+Visit the app hosted on Streamlit Community Cloud: [Random number simulation of the Dunning and Kruger experiments](https://dunning-kruger.streamlit.app).
 
 ## Try it locally
 

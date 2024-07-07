@@ -6,10 +6,10 @@ authors = [
     {name = "Evgeny Ivanov", email = "ivanov.evgeny.n@gmail.com"},
 ]
 dependencies = [
-    "altair",
-    "numpy",
-    "polars",
-    "streamlit",
+    "altair>=5,<6",
+    "numpy>=2,<3",
+    "polars>=1,<2",
+    "streamlit>=1,<2",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
@@ -32,15 +32,16 @@ reportUnknownMemberType = false
 
 
 [tool.ruff]
+[tool.ruff.lint]
 select = [
     "A", "ANN", "ARG", "B", "C4", "C90", "COM", "DTZ", "E", "ERA", "F",
     "I", "ICN", "INP", "N", "PL", "PT", "RET", "RSE", "RUF", "Q", "SIM",
     "SLF", "TCH", "TID", "TRY", "UP", "W",
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 force-sort-within-sections = true
 lines-after-imports = 2
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"

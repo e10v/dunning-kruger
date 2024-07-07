@@ -21,7 +21,7 @@ if TYPE_CHECKING:
 QUARTILES = ("bottom", "2nd", "3rd", "top")
 
 
-def percentile(x: npt.NDArray[np.float_]) -> npt.NDArray[np.int_]:
+def percentile(x: npt.NDArray[np.float64]) -> npt.NDArray[np.int64]:
     return x.argsort().argsort() * 100 // len(x)
 
 def generate_data(
@@ -56,8 +56,8 @@ def generate_data(
 
 def create_point_chart(data: pl.DataFrame, x: str, y: str) -> alt.Chart:
     return alt.Chart(data).mark_point().encode(
-        alt.X(f"{x}:Q").title(x.replace("_", " ")),
-        alt.Y(f"{y}:Q").title(y.replace("_", " ")),
+        alt.X(f"{x}:Q").title(x.replace("_", " ")),  # type: ignore
+        alt.Y(f"{y}:Q").title(y.replace("_", " ")),  # type: ignore
     )
 
 
@@ -70,21 +70,21 @@ def create_quartile_chart(data: pl.DataFrame, quartile_col: str) -> alt.Chart:
         )
         .group_by(quartile_col)
         .mean()
-        .melt(id_vars=quartile_col, value_name="average")
+        .unpivot(index=quartile_col, value_name="average")
         .pipe(alt.Chart)
         .mark_line(point=True)
         .encode(
             alt.Color("variable:N")
-                .sort(("test score", "perceived ability"))
+                .sort(("test score", "perceived ability"))  # type: ignore
                 .legend(orient="bottom-right")
                 .title(None),
             alt.X(f"{quartile_col}:N")
-                .sort(QUARTILES)
+                .sort(QUARTILES)  # type: ignore
                 .axis(labelAngle=0)
                 .title(quartile_col.replace("_", " ")),
             alt.Y("average:Q")
                 .scale(domain=(0, 100))
-                .title("average percentile"),
+                .title("average percentile"),  # type: ignore
         )
     )
 
@@ -152,11 +152,13 @@ if __name__ == "__main__":
     """))
 
     st.markdown(textwrap.dedent("""\
-        The Dunning–Kruger effect suggests that people with low competence in a domain\
-        often overestimate their abilities. But do the foundational experiments truly\
-        confirm this effect? This app offers a random number simulation challenging\
-        those original findings. For a deep dive into the topic, check out my blog post\
-        [Debunking the Dunning–Kruger effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
+        The Dunning–Kruger effect is a cognitive bias wherein people with limited\
+        competence in a particular domain overestimate their abilities. It turns out\
+        that the Dunning and Kruger experiments do not prove that the effect is real.\
+        This app illustrates this using a random number simulation. The data generation\
+        process doesn't imply that "incompetent" participants overestimate their\
+        abilities. See more details in my blog post [Debunking the Dunning–Kruger\
+        effect with random number simulation](https://e10v.me/debunking-dunning-kruger-effect/).
     """))
 
     st.header("Test score vs. perceived ability")
